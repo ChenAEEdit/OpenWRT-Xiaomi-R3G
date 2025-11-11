@@ -115,7 +115,7 @@ jobs:
         working-directory: openWRT
         run: ./scripts/feeds update -a && ./scripts/feeds install -a
 
-     - name: 克隆UA3F
+      - name: 克隆UA3F
         working-directory: openWRT
         run: |
          git clone https://github.com/SunBK201/UA3F.git package/UA3F
