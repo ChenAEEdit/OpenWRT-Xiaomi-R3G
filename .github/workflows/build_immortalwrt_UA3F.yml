@@ -111,15 +111,15 @@ jobs:
           chmod +x diy.sh
           ./diy.sh
           
-      - name: 克隆UA3F
-        working-directory: openWRT
-        run: |
-         git clone https://github.com/SunBK201/UA3F.git package/UA3F
-
       - name: 更新并下载 feeds (Update and download feeds)
         working-directory: openWRT
         run: ./scripts/feeds update -a && ./scripts/feeds install -a
 
+     - name: 克隆UA3F
+        working-directory: openWRT
+        run: |
+         git clone https://github.com/SunBK201/UA3F.git package/UA3F
+         
       - name: 使用ssh连接编译环境，限时15分钟，可在连接后输入命令 `touch /tmp/keepalive` 保活 (Connect to the build environment using ssh)
         if: ${{inputs.ssh == true}}
         uses: csexton/debugger-action@master
@@ -133,6 +133,14 @@ jobs:
             openWRT/.config
             openWRT/feeds.conf.default
           include-hidden-files: true
+
+
+      - name: 单独编译 ua3f
+        if: ${{inputs.multithreading == true}}
+        working-directory: openWRT
+        run: make package/UA3F/openwrt/compile -j1 V=sc # 编译单个包
+
+
 
       - name: 多线程编译 openWRT (Build openWRT multithreading)
         if: ${{inputs.multithreading == true}}
