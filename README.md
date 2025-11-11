@@ -5,7 +5,7 @@
 ## 默认.config如下
 
 - Target Ramips
-- CUP mt7621
+- CPU mt7621
 - Device XiaoMi_Mi-Router-3g
   
 -------------------------------
