@@ -136,7 +136,7 @@ jobs:
 
 
       - name: 单独编译 ua3f
-        if: ${{inputs.multithreading == true}}
+        if: ${{inputs.multithreading == false}}
         working-directory: openWRT
         run: make package/UA3F/openwrt/compile -j1 V=sc # 编译单个包
 
